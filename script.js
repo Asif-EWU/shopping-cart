@@ -6,3 +6,6 @@ for (let i = 0; i < removeSection.length; i++) {
         event.target.closest('.cart-item').remove();
     })
 }
+
+const iPhoneUnitPrice = parseFloat(document.getElementById('iPhone-price').innerText);
+const caseUnitPrice = parseFloat(document.getElementById('case-price').innerText);
