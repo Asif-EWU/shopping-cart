@@ -1,3 +1,4 @@
+const vat = 0.05;
 let unitPrice = [];
 const price = document.getElementsByClassName('price');
 for (let i = 0; i < price.length; i++) {
@@ -13,6 +14,13 @@ for (let i = 0; i < removeSection.length; i++) {
     })
 }
 
+// FUNCTION to set item price
+function setItemPrice(itemSerial, unit) {
+    const price = document.getElementsByClassName('price')[itemSerial];
+    const itemPrice = unitPrice[itemSerial] * unit;
+    price.innerText = itemPrice;
+}
+
 // FUNCTION to handle unit increment/decrement
 function changeUnit(increment, incrementValue) {
     for (let i = 0; i < increment.length; i++) {
@@ -21,7 +29,10 @@ function changeUnit(increment, incrementValue) {
             const parentDiv = event.target.closest('div');
             const childInput = parentDiv.querySelector('input');
             const unit = parseInt(childInput.value) + incrementValue;
-            if(unit) childInput.value = unit;
+            if(unit) {
+                childInput.value = unit;
+                setItemPrice(i, unit);
+            }
         })
     }
 }
