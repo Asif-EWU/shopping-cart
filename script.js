@@ -1,4 +1,24 @@
-const vat = 0.05;
+// FUNCTION to set total price
+function setTotalPrice() {
+    let subtotal = 0;
+    const price = document.getElementsByClassName('price');
+    for (let i = 0; i < price.length; i++) {
+        subtotal += parseInt(price[i].innerText);
+    }
+
+    const totalTax = Math.floor(subtotal * tax);
+    const total = subtotal + totalTax;
+
+    document.getElementById('subtotal').innerText = subtotal;
+    document.getElementById('tax').innerText = totalTax;
+    document.getElementById('total').innerText = total;
+}
+
+// set initial total price
+const tax = 0.05;
+setTotalPrice();
+
+// set unitPrice array
 let unitPrice = [];
 const price = document.getElementsByClassName('price');
 for (let i = 0; i < price.length; i++) {
@@ -11,6 +31,7 @@ for (let i = 0; i < removeSection.length; i++) {
     const section = removeSection[i];
     section.addEventListener('click', function(event) {
         event.target.closest('.cart-item').remove();
+        setTotalPrice();
     })
 }
 
@@ -32,6 +53,7 @@ function changeUnit(increment, incrementValue) {
             if(unit) {
                 childInput.value = unit;
                 setItemPrice(i, unit);
+                setTotalPrice();
             }
         })
     }
