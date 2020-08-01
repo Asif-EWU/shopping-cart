@@ -40,6 +40,7 @@ function setItemPrice(itemSerial, unit) {
     const price = document.getElementsByClassName('price')[itemSerial];
     const itemPrice = unitPrice[itemSerial] * unit;
     price.innerText = itemPrice;
+    setTotalPrice();
 }
 
 // FUNCTION to handle unit increment/decrement
@@ -53,7 +54,6 @@ function changeUnit(increment, incrementValue) {
             if(unit) {
                 childInput.value = unit;
                 setItemPrice(i, unit);
-                setTotalPrice();
             }
         })
     }
@@ -64,3 +64,24 @@ const plus = document.getElementsByClassName('plus');
 const minus = document.getElementsByClassName('minus');
 changeUnit(plus, 1);
 changeUnit(minus, -1);
+
+// event handler for keyboard input
+const inputUnit = document.getElementsByTagName('input');
+for (let i = 0; i < inputUnit.length; i++) {
+    inputUnit[i].addEventListener('keyup', function(event) {
+        if(event.keyCode === 13) {
+            let unit = parseInt(inputUnit[i].value);
+            if(unit < 1) {
+                inputUnit[i].value = 1;
+                unit = 1;
+            }
+            setItemPrice(i, unit);
+        }
+    })
+}
+
+// check out button event handler
+document.getElementById('checkout-btn').addEventListener('click', function() {
+    alert('Check Out successful !!');
+    location.reload();
+})
